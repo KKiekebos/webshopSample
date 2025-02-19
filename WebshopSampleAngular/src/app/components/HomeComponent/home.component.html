@@ -1,0 +1,6 @@
+@for (product of products; track product.id) {
+  <button (click)="onClick(product.id)" class="tile">
+    <p><b>{{product.name}}</b></p>
+    <p>{{product.image}}</p>
+  </button>
+}

@@ -1,0 +1,13 @@
+<h1>{{product?.name}}</h1>
+<p>{{product?.description}}</p>
+<img src="{{product?.image}}">
+
+@if (hasOptions()) {
+  <select name="options" id="options">
+    @for (option of product?.options; track option) {
+      <option value="{{option}}">{{option}}</option>
+    }
+  </select>
+}
+<br/>
+<button (click)="backToOverview()">Terug naar overzicht</button>
