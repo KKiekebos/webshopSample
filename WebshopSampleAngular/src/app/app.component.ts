@@ -15,7 +15,7 @@ export class AppComponent {
   products: Product[] = [];
 
   constructor(http: HttpClient) {
-    http.get<Product[]>('https://localhost:7129/product').subscribe(data => {
+    http.get<Product[]>('https://localhost:7129/product/GetProducts').subscribe(data => {
       this.products = data;
     });
   }

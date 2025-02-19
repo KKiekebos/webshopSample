@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebshopSample.Controllers;
 using WebshopSample.Models;
@@ -53,7 +53,7 @@ namespace WebshopSample.ControllerTests
             productRepository.Setup(m => m.GetProducts()).Returns(products);
 
             // Act
-            var result = sut.GetProducts();
+            var result = sut.GetProducts().Value;
 
             // Assert
             result.Should().NotBeNull();
@@ -67,7 +67,7 @@ namespace WebshopSample.ControllerTests
             var result = sut.GetProducts();
 
             // Assert
-            result.Result.Should().BeOfType<NotFound>();
+            result.Result.Should().BeOfType<NotFoundResult>();
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace WebshopSample.ControllerTests
             productRepository.Setup(m => m.GetProductById(id)).Returns(product);
 
             // Act
-            var result = sut.GetProductById(id.ToString());
+            var result = sut.GetProductById(id.ToString()).Value;
 
             // Assert
             result.Should().NotBeNull();
@@ -103,7 +103,7 @@ namespace WebshopSample.ControllerTests
             var result = sut.GetProductById(Guid.NewGuid().ToString());
 
             // Assert
-            result.Result.Should().BeOfType<NotFound>();
+            result.Result.Should().BeOfType<NotFoundResult>();
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace WebshopSample.ControllerTests
             var result = sut.GetProductById(" ");
 
             // Assert
-            result.Result.Should().BeOfType<BadRequest>();
+            result.Result.Should().BeOfType<BadRequestResult>();
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace WebshopSample.ControllerTests
             var result = sut.GetProductById("Not a guid");
 
             // Assert
-            result.Result.Should().BeOfType<BadRequest>();
+            result.Result.Should().BeOfType<BadRequestResult>();
         }
     }
 }
