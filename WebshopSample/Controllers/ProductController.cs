@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using WebshopSample.Models;
+using WebshopSample.Repositories;
 
 namespace WebshopSample.Controllers
 {
@@ -6,23 +8,22 @@ namespace WebshopSample.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
+        private IProductRepository productRepository;
 
-
-        public ProductController()
-        {
+        public ProductController(IProductRepository productRepository) {
+            this.productRepository = productRepository;
         }
 
         [HttpGet(Name = "GetProducts")]
-        public IEnumerable<Product> Get()
+        public ActionResult<IEnumerable<Product>> GetProducts()
         {
-            return Enumerable.Range(1, 5).Select(index => new Product
-            {
-                Name = $"Product {index}",
-                Description = $"The product with index {index}",
-                Options = [],
-                Image = "image"
-            })
-            .ToArray();
+            throw new NotImplementedException();
+        }
+
+        [HttpGet(Name = "GetProductById/{id}")]
+        public ActionResult<Product> GetProductById(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
